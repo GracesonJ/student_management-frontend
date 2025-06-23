@@ -2,32 +2,33 @@ import React, { useEffect } from 'react'
 import { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
+import { updateStudentAPI } from '../Service/allApi';
 
-function EditStudent({ student }) {
-    console.log(student);
+function EditStudent({ students }) {
+    // console.log(student);
 
     const [studentDetails, setStudentDetails] = useState({
-        name: student?.name,
-        contact: student?.contact,
-        email: student?.email,
-        course: student?.course
+        name: students?.name,
+        contact: students?.contact,
+        email: students?.email,
+        course: students?.course
 
     })
 
 
 
-    const handleEdit = async () => {
+    const handleEditStudent = async () => {
         const { name, contact, email, course } = studentDetails
-        // console.log(name, contact, email, course);
-        try {
+        console.log(name, contact, email, course);
+        if(studentDetails){
             const body = { name, contact, email, course };
             const headers = { "Content-Type": "application/json" };
-            const result = await updateStudentAPI(body, headers);
-            alert(result.data.message || "Student updated successfully!");
-            location("/");
-        } catch (err) {
-            console.error("Error updating Student:", err);
-            alert("Something went wrong while updating.");
+
+            const result = await updateStudentAPI(students._id, body, headers);
+            console.log(result);
+            alert( `Student Updated Successfully`)
+        }else{
+             alert("Something went wrong while updating.");
         }
     };
 
@@ -79,7 +80,7 @@ return (
                 <Button variant="secondary" onClick={handleClose}>
                     Close
                 </Button>
-                <Button variant="primary" onClick={handleEdit}>
+                <Button variant="primary" onClick={handleEditStudent}>
                     Save Student
                 </Button>
             </Modal.Footer>

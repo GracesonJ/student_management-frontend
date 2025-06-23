@@ -15,7 +15,7 @@ function AddStudent() {
 
     const handleAdd = async (e)=>{
         const {name, contact, email, course} = studentDetails
-        // console.log(name, contact, email, course);
+        console.log(name, contact, email, course);
     e.preventDefault();
 
     const body = { name, contact, email, course };
